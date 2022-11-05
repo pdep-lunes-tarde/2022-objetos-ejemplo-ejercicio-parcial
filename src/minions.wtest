@@ -1,4 +1,5 @@
 import minions.*
+import tareas.*
 
 test "si un empleado come una uva, recupera 1 de estamina" {
 	const empleado = new Ciclope(estamina=1)
@@ -32,3 +33,26 @@ test "si un biclope come fruta, su estamina resultante no pasa su limite de esta
 	assert.equals(10, biclope.estamina())
 }
 
+test "la experiencia de un empleado que no hizo ninguna tarea es 0" {
+	const empleado = new Biclope(estamina=1)
+	
+	assert.equals(0, empleado.experiencia())
+}
+
+test "la experiencia de un empleado que hizo una tarea es la dificultad de tarea" {
+	const empleado = new Biclope(estamina=1)
+	
+	empleado.realizarTarea(new LimpiarSector())
+	
+	assert.equals(10, empleado.experiencia())
+}
+
+test "la experiencia de un empleado es la sumatoria de las dificultades de sus tareas multiplicado por la cantidad de tareas realizadas" {
+	const empleado = new Biclope(estamina=1)
+	
+	empleado.realizarTarea(new LimpiarSector())
+	empleado.realizarTarea(new ArreglarMaquina(complejidadDeLaMaquina=5))
+	empleado.realizarTarea(new DefenderSector(gradoDeAmenaza=5))
+	
+	assert.equals(75, empleado.experiencia())
+}

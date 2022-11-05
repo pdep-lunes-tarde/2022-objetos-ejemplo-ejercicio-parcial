@@ -1,10 +1,20 @@
 class Empleado {
 	var estamina = 0
+	const tareasRealizadas = []
 
 	method estamina() = estamina
 	
+	method experiencia() =
+		tareasRealizadas.sum { tarea =>
+			tarea.dificultadPara(self)
+		} * tareasRealizadas.size()
+	
 	method comer(fruta) {
 		estamina = self.estaminaResultanteTrasComer(fruta)
+	}
+	
+	method realizarTarea(unaTarea) {
+		tareasRealizadas.add(unaTarea)
 	}
 
 	method estaminaResultanteTrasComer(fruta) {
