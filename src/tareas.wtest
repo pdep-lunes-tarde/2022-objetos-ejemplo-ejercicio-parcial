@@ -1,0 +1,33 @@
+import tareas.*
+import minions.*
+
+test "la dificultad de arreglar una maquina es el doble de la complejidad de la maquina a arreglar" {
+	const arreglarMaquina = new ArreglarMaquina(complejidadDeLaMaquina=3)
+	
+	assert.equals(6, arreglarMaquina.dificultadPara(new Biclope()))
+}
+
+test "la dificultad de defender un sector para un biclope es el grado de amenaza" {
+	const defenderUnSector = new DefenderSector(gradoDeAmenaza=2)
+	
+	assert.equals(2, defenderUnSector.dificultadPara(new Biclope()))
+}
+
+test "la dificultad de defender un sector para un ciclope es el doble del grado de amenaza" {
+	const defenderUnSector = new DefenderSector(gradoDeAmenaza=2)
+	
+	assert.equals(4, defenderUnSector.dificultadPara(new Ciclope()))
+}
+
+test "la dificultad de limpiar un sector inicialmente es 10" {
+	const limpiarUnSector = new LimpiarSector()
+	
+	assert.equals(10, limpiarUnSector.dificultadPara(new Ciclope()))
+}
+
+test "la dificultad de limpiar un sector se puede configurar" {
+	tareasDeLimpieza.configurarDificultad(5)
+	
+	assert.equals(5, new LimpiarSector().dificultadPara(new Ciclope()))
+}
+
