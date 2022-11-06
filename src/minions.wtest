@@ -48,11 +48,37 @@ test "la experiencia de un empleado que hizo una tarea es la dificultad de tarea
 }
 
 test "la experiencia de un empleado es la sumatoria de las dificultades de sus tareas multiplicado por la cantidad de tareas realizadas" {
-	const empleado = new Biclope(estamina=1)
+	const empleado = new Biclope(estamina=10)
 	
 	empleado.realizarTarea(new LimpiarSector())
+	empleado.comer(banana)
 	empleado.realizarTarea(new ArreglarMaquina(complejidadDeLaMaquina=5))
+	empleado.comer(banana)
 	empleado.realizarTarea(new DefenderSector(gradoDeAmenaza=5))
 	
 	assert.equals(75, empleado.experiencia())
+}
+
+test "la fuerza de un empleado es la mitad de su estamina + 2" {
+	const empleado = new Biclope(estamina=10)
+	
+	assert.equals(7, empleado.fuerza())
+}
+
+test "un soldado que nunca defendio un sector tiene la misma fuerza que un empleado normal" {
+	const empleado = new Biclope(estamina=10, rol=new Soldado())
+	
+	assert.equals(7, empleado.fuerza())
+}
+
+test "los soldados suman a su fuerza el danio extra por practica que tienen" {
+	const empleado = new Biclope(estamina=10, rol=new Soldado(danioExtraPorPractica=2))
+	
+	assert.equals(9, empleado.fuerza())
+}
+
+test "la fuerza de un ciclope es la mitad que la de un empleado normal" {
+	const empleado = new Ciclope(estamina=10, rol=new Soldado(danioExtraPorPractica=2))
+	
+	assert.equals(4.5, empleado.fuerza())
 }
